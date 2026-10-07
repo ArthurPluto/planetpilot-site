@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open data (ODbL) | Planet Pilot</title>
+<meta name="description" content="The OpenStreetMap-derived databases shipped in Planet Pilot, offered under the Open Database License: buildings, road graph and profiles, green, city water and coast.">
+<link rel="canonical" href="https://planetpilot.world/open-data/">
+<meta name="theme-color" content="#3aa8f2">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Planet Pilot">
+<meta property="og:title" content="Planet Pilot open data (ODbL)">
+<meta property="og:description" content="Download the OpenStreetMap-derived databases inside Planet Pilot, with the scripts that bake them.">
+<meta property="og:url" content="https://planetpilot.world/open-data/">
+<meta property="og:image" content="https://planetpilot.world/assets/img/og-1200x630.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://planetpilot.world/assets/img/og-1200x630.jpg">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/assets/img/icon-64.png" width="40" height="40" alt=""><span>Planet Pilot</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/#features">Features</a>
+      <a href="/#trailer">Trailer</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/press/">Press</a>
+      <a href="/support/">Support</a>
+      <a href="/he/" lang="he" hreflang="he">עברית</a>
+      <a class="btn btn-sun btn-sm" data-link="steam" href="https://store.steampowered.com/search/?term=Planet%20Pilot" rel="noopener">Wishlist on Steam</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-head">
+  <div class="wrap">
+    <h1>Open data</h1>
+    <p>Planet Pilot's cities, roads, parks and waters are built from OpenStreetMap. The databases we derived from it are yours to download and reuse under the same open licence.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>The offer</h2>
+    <p>The game ships several databases derived from OpenStreetMap data, which we obtained through the releases of the Overture Maps Foundation. Under section 4.6 of the <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener">Open Database License (ODbL) v1.0</a>, we offer each of these Derivative Databases, in full and in the exact form the game reads them, under the ODbL v1.0. You may copy, share and adapt them, including commercially, as long as you credit the sources below, keep them under the ODbL (share-alike), and do not lock them behind technical restrictions.</p>
+    <p>The game itself (its art, code, aircraft and gameplay) is a Produced Work and is not covered by this offer.</p>
+
+    <h2>The databases</h2>
+    <ul class="dl-list">
+      <li>
+        <div class="row"><b>Buildings</b><a class="btn btn-sm btn-sun" data-dl="buildings" data-soon="Download at launch" href="#">Download</a></div>
+        <span>Building footprints with heights for the detailed city regions, one file per region plus an index (<code>buildings/&lt;region&gt;.bin</code>, <code>buildings/index.bin</code>), and the tower table <code>city_towers.json</code>. Each footprint keeps its real shape, size, orientation and height; the bake selects the buildings that fit the 1/5-scale ground, tallest and most important first.</span>
+        <small>Script: <code>tools/fetch_heights.py</code>, <code>tools/bake_city_buildings.py</code>. Source: Overture Maps buildings, release <code>2026-09-23.1</code>.</small>
+      </li>
+      <li>
+        <div class="row"><b>Roads: the road graph and road profiles</b><a class="btn btn-sm btn-sun" data-dl="roads" data-soon="Download at launch" href="#">Download</a></div>
+        <span>The connected road network the game's traffic drives on: motorways and trunk roads worldwide, primary roads around large towns, and secondary roads and named avenues in the detailed cities (<code>roadgraph.bin</code>, with the city main roads in <code>roads.bin</code>). The road profiles (<code>roadprof/</code>) hold the deck heights, bridges, viaducts and tunnels of every graph edge, solved on the game's terrain.</span>
+        <small>Scripts: <code>tools/bake_roads.py</code>, <code>tools/bake_road_graph.py</code>, <code>tools/bake_road_profiles.gd</code> (run by <code>tools/bake_road_profiles_par.py</code>). Source: Overture Maps transportation/segment, release <code>2026-09-23.1</code>.</small>
+      </li>
+      <li>
+        <div class="row"><b>Green</b><a class="btn btn-sm btn-sun" data-dl="green" data-soon="Download at launch" href="#">Download</a></div>
+        <span>Parks, gardens, grass, woods, cemeteries, golf courses, park ponds and tree points in the detailed city regions, one file per region plus an index (<code>green/&lt;region&gt;.bin</code>, <code>green/index.bin</code>).</span>
+        <small>Script: <code>tools/bake_city_green.py</code>. Source: Overture Maps base land_use and land, release <code>2026-09-23.1</code>.</small>
+      </li>
+      <li>
+        <div class="row"><b>City water</b><a class="btn btn-sm btn-sun" data-dl="water" data-soon="Download at launch" href="#">Download</a></div>
+        <span>Real-width city rivers, canals, docks and lakes, generalised for the 1/5-scale planet as a signed distance field (<code>city_water.bin</code>), plus the lake shore patches near the detailed cities.</span>
+        <small>Scripts: <code>tools/bake_city_water.py</code>, <code>tools/patch_lake_osm.py</code>. Source: Overture Maps base.water, release <code>2026-09-23.0</code>.</small>
+      </li>
+      <li>
+        <div class="row"><b>Coast</b><a class="btn btn-sm btn-sun" data-dl="coast" data-soon="Download at launch" href="#">Download</a></div>
+        <span>Coast patches that turn tidal city water (harbours, estuaries, tidal rivers) into sea, so a city's river and its harbour are one body of water (<code>coast_ov_osm.bin</code>).</span>
+        <small>Script: <code>tools/bake_city_water.py</code>. Source: Overture Maps base.water, release <code>2026-09-23.0</code>.</small>
+      </li>
+      <li>
+        <div class="row"><b>SOURCES.txt</b><a class="btn btn-sm" data-dl="sources" data-soon="Download at launch" href="#">Download</a></div>
+        <span>Every file's source snapshot, the command that rebuilds it and the date it was baked.</span>
+      </li>
+    </ul>
+
+    <h2>File formats and bake scripts</h2>
+    <p>The files are compact little-endian binary formats built for the game (tiles of quantised points, zlib or zstd compressed). Each format is documented byte by byte at the top of the script that writes it, and the scripts read the Overture releases straight from the public Overture S3 bucket with DuckDB, so anyone can rebuild the databases from the same snapshots.</p>
+    <p><a class="btn btn-sm btn-sky" data-link="scripts" href="mailto:opendata@planetpilot.world?subject=Planet%20Pilot%20bake%20scripts">Get the bake scripts</a></p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">Overture theme</th><th scope="col">Release id</th><th scope="col">Used for</th></tr></thead>
+        <tbody>
+          <tr><td>buildings / building, building_part</td><td><code>2026-09-23.1</code></td><td>Buildings</td></tr>
+          <tr><td>transportation / segment</td><td><code>2026-09-23.1</code></td><td>Road graph, city roads, road profiles</td></tr>
+          <tr><td>base / land_use, land</td><td><code>2026-09-23.1</code></td><td>Green</td></tr>
+          <tr><td>base / water</td><td><code>2026-09-23.0</code></td><td>City water, lake shores, coast</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Credits</h2>
+    <ul>
+      <li><strong>OpenStreetMap:</strong> map data &copy; <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap contributors</a>, available under the Open Database License.</li>
+      <li><strong>Overture Maps Foundation:</strong> the <a href="https://overturemaps.org/" rel="noopener">Overture Maps</a> releases listed above, which combine OpenStreetMap with other open sources.</li>
+      <li><strong>Building heights:</strong> 3D-GloBFP (Che et al. 2024, CC BY 4.0), Google Open Buildings 2.5D Temporal (CC BY 4.0) and the European Commission's GHSL GHS-BUILT-H R2023A (CC BY 4.0). Tower heights from <a href="https://www.wikidata.org/" rel="noopener">Wikidata</a> (CC0).</li>
+      <li><strong>Other sources in the game's world:</strong> Natural Earth (public domain); the terrain and the sea mask use Copernicus data, produced using Copernicus WorldDEM-30 &copy; DLR e.V. 2010-2014 and &copy; Airbus Defence and Space GmbH 2014-2018, provided under COPERNICUS by the European Union and ESA; all rights reserved.</li>
+    </ul>
+    <p>Questions about the data, or a problem with a download: <a href="mailto:opendata@planetpilot.world">opendata@planetpilot.world</a>.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/assets/img/logo-480.webp" width="480" height="244" alt="Planet Pilot" loading="lazy">
+        <p>A flight game on a toy-sized Earth by Arthur Getz.</p>
+      </div>
+      <div>
+        <h2>Game</h2>
+        <ul>
+          <li><a data-link="steam" href="https://store.steampowered.com/search/?term=Planet%20Pilot" rel="noopener">Steam page</a></li>
+          <li><a href="/#trailer">Trailer</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/he/" lang="he" hreflang="he">עברית</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Community</h2>
+        <ul>
+          <li><a href="/support/">Support</a></li>
+          <li><a data-link="discord" data-soon="Discord: coming soon" href="#">Discord</a></li>
+          <li><a href="/press/">Press kit</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="/privacy/">Privacy policy</a></li>
+          <li><a href="/open-data/" aria-current="page">Open data (ODbL)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p>&copy; <span data-year>2026</span> Arthur Getz. Steam is a trademark of Valve Corporation.</p>
+      <p>Map data &copy; OpenStreetMap contributors, ODbL, via the Overture Maps Foundation. <a href="/open-data/">Details and downloads</a>.</p>
+      <p>This site uses no cookies and no tracking.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/site.js"></script>
+</body>
+</html>

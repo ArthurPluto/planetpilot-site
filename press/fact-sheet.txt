@@ -1,0 +1,32 @@
+PLANET PILOT: FACT SHEET
+
+Developer and publisher: Arthur Getz (solo developer)
+Release date: Tuesday, December 1, 2026
+Steam page: Coming Soon from early November 2026
+Free demo: on Steam from about November 10, 2026
+Platform: Windows PC (Steam)
+Price: $19.99 USD
+Languages (interface and subtitles): English, Hebrew, Simplified Chinese, Russian,
+German, Spanish, Portuguese (Brazil)
+Input: keyboard, mouse and gamepad
+Website: https://planetpilot.world
+Press contact: press@planetpilot.world
+
+IN SHORT
+A premium-cartoon flight game on a toy-sized Earth. Fly a planet one fifth of the
+real size with about 2,890 real airports, grow a flying career from an ultralight
+to a supersonic jet, then trade passengers for guns in Dogfights, Legends battles
+and online PvP.
+
+KEY FACTS
+- A toy-sized Earth at 1/5 scale with real coastlines, mountains, rivers and cities
+- About 2,890 real airports
+- 268,000 real buildings across 8 detailed cities, plus 138 landmarks
+- 17 career planes from an ultralight to a supersonic jet
+- Dogfights: 15 fighters from WW1 biplanes to modern jets
+- Legends: 14 famous air battles
+- Online PvP and co-op
+- 70 achievements and a secret plane
+- Real flight physics, with per-plane autoland for new pilots
+
+Map data (c) OpenStreetMap contributors, ODbL, via the Overture Maps Foundation.
