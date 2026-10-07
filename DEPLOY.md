@@ -1,9 +1,10 @@
 # Deploying planetpilot.world
 
 The site is plain static HTML, CSS and a little JS. There is no build step: the
-repository root IS the website. Test it locally with:
+`docs/` folder IS the website, and only `docs/` is published (GitHub Pages serves
+`main` / `docs`). `tools/`, `deploy/` and this file stay private. Test locally:
 
-    python -m http.server 8180
+    python -m http.server 8180 -d docs
     # then open http://127.0.0.1:8180/
 
 Recommended host: **(a) GitHub Pages**, free, with HTTPS. (b) Railway is the
@@ -15,32 +16,36 @@ Nothing has been pushed, deployed or changed in DNS yet.
 
 ## Before going live: the placeholders
 
-All links that are not known yet live in ONE file, `assets/js/config.js`:
+All links that are not known yet live in ONE file, `docs/assets/js/config.js`:
 
 | Setting | Now | Set it to |
 | --- | --- | --- |
 | `STEAM_URL` | empty: Wishlist buttons open a Steam search for "Planet Pilot" | the store URL, e.g. `https://store.steampowered.com/app/1234567/Planet_Pilot/` |
 | `YOUTUBE_ID` | empty: the trailer slot shows the key art and "Trailer coming soon" | the video id after `watch?v=` |
 | `DISCORD_URL` | empty: shown as "Discord: coming soon" | the invite link |
-| `OPEN_DATA_BASE` | empty: downloads say "Download at launch" | the GitHub release download URL, ending in `/` |
-| `OPEN_DATA_SCRIPTS_URL` | empty: the button opens an email to opendata@ | the repo or folder holding the bake scripts |
+| `OPEN_DATA_ZIP_URL` | empty: "Download at launch" | the release asset `planetpilot-odbl-v<version>.zip` |
+| `OPEN_DATA_REPO_URL` | empty: "Published at launch" | the public repo with the bake scripts and the two CC BY-SA models |
 
 Edit, commit, push: the site updates in about a minute.
 
 Also do before launch:
-- **Email addresses.** The pages use `privacy@`, `press@`, `support@`, `bugs@` and
-  `opendata@planetpilot.world`. In Namecheap: Domain List > planetpilot.world >
+- **Email addresses.** The pages use `privacy@` (also the game's contact, and the
+  open-data contact), `press@`, `support@` and `bugs@planetpilot.world`. In Namecheap: Domain List > planetpilot.world >
   Manage > Mail Settings > **Email Forwarding**, and forward each one (or a
   catch-all `*`) to your inbox. This adds Namecheap's MX records; it does not
   conflict with the website records below.
-- **Privacy policy** (`/privacy/`): marked "Draft, to be reviewed". Have it
-  reviewed, then delete the yellow notice in `privacy/index.html`. If the legal
-  workstream finishes `store/steam/PRIVACY_POLICY.md` (branch ln-legal), replace
-  the text with it.
-- **Screenshots v2.** When `store/steam/screenshots_v2` is ready: fill `SLOTS_V2`
-  in `tools/build_assets.py` (slot name -> new PNG file name) and run
-  `python tools/build_assets.py`. It rewrites `assets/shots/*`, the key art, the
-  fonts and the press ZIP. No HTML edits needed.
+- **Privacy policy and open data** (`/privacy/`, `/open-data/`): the text is
+  `store/steam/PRIVACY_POLICY.md` and `store/steam/OPEN_DATA.md` from the game's
+  dev branch (the game links these two pages), plus a short "This website"
+  section on /privacy/. Keep them in step when those files change. /privacy/
+  is marked "Draft, to be reviewed": delete the yellow notice in
+  `docs/privacy/index.html` after the lawyer's review. The policy promises
+  90-day retention, which needs the server change listed at the end of
+  PRIVACY_POLICY.md before launch.
+- **Screenshots.** `tools/build_assets.py` maps slot names to
+  `store/steam/screenshots_v2/*.png` (SLOTS) and redraws the old "Sparrow Cub"
+  label in shots 08 and 09 (LABEL_FIX; drop it once they are recaptured). Run
+  `python tools/build_assets.py` after any art change; no HTML edits needed.
 
 ---
 
@@ -52,13 +57,13 @@ Needs Arthur's OK to create a **public** repo `ArthurPluto/planetpilot-site`.
 
     bash deploy/github-pages.sh
 
-It creates the repo, pushes `main`, enables Pages from `main` / root and sets the
-custom domain `planetpilot.world` (the `CNAME` file in the repo says the same).
+It creates the repo, pushes `main`, enables Pages from `main` / `docs` and sets the
+custom domain `planetpilot.world` (`docs/CNAME` says the same).
 Other owner or name: `OWNER=... REPO=... bash deploy/github-pages.sh`.
 
 Manual equivalent: create the public repo on github.com, `git remote add origin
 ...` and `git push -u origin main`, then Settings > Pages > Source "Deploy from a
-branch", branch `main`, folder `/ (root)`, Custom domain `planetpilot.world`.
+branch", branch `main`, folder `/docs`, Custom domain `planetpilot.world`.
 
 ### 2. Namecheap DNS
 
@@ -112,8 +117,8 @@ Once the records resolve, GitHub issues a Let's Encrypt certificate by itself
     git add -A && git commit -m "..." && git push
 
 GitHub Pages rebuilds in about a minute. (`.nojekyll` is in the repo so files
-are served as is.) Sizes are well inside the limits: about 22 MB in total, the
-hero loop is 4.6 MB, the press ZIP 11 MB.
+are served as is.) Only `docs/` is served. Sizes are well inside the limits: about 22 MB in total, the
+hero loop is 4.6 MB, the press ZIP 10 MB.
 
 ---
 
@@ -141,19 +146,11 @@ it bills usage, and the apex needs the ALIAS workaround.
 
 ## Open data release (for /open-data/)
 
-Package the ODbL databases from the game repo
-(`C:\Users\arthu\skybound-godot\data\world\odbl\`) as release assets, with the
-file names in `OPEN_DATA_FILES` in `assets/js/config.js`:
-
-| Asset | Contents |
-| --- | --- |
-| `planetpilot-odbl-buildings.zip` | `buildings/` (all region .bin + index.bin), `city_towers.json`, `LICENSE.txt` |
-| `planetpilot-odbl-roads.zip` | `roadgraph.bin`, `roads.bin`, `roadprof/`, `LICENSE.txt` |
-| `planetpilot-odbl-green.zip` | `green/`, `LICENSE.txt` |
-| `planetpilot-odbl-city-water.zip` | `city_water.bin`, the patched lake data, `LICENSE.txt` |
-| `planetpilot-odbl-coast.zip` | `coast_ov_osm.bin`, `LICENSE.txt` |
-| `SOURCES.txt` | as is |
-
-Then put the release URL (ending in `/`) in `OPEN_DATA_BASE`. Publishing the bake
-scripts (`tools/bake_*.py` etc. listed on the page) next to it satisfies the
-"method" part; set `OPEN_DATA_SCRIPTS_URL` to it.
+As planned in `store/steam/OPEN_DATA.md`: one ZIP per game release,
+`planetpilot-odbl-v<version>.zip` (about 200 MB), with every file listed on the
+page, `ODBL_LICENSE.txt`, `ODBL_SOURCES.txt` and a README on the binary formats,
+as a GitHub release asset of a public repo (for example
+`ArthurPluto/planetpilot-open-data`). Put the bake scripts and the two CC BY-SA
+models (`christ_redeemer.glb`, `mount_rushmore.glb` with their notice) in the same
+repo. Then set `OPEN_DATA_ZIP_URL` and `OPEN_DATA_REPO_URL`. Creating that repo
+also needs Arthur's OK.

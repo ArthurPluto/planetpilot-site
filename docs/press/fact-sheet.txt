@@ -1,0 +1,38 @@
+PLANET PILOT: FACT SHEET
+
+Title: Planet Pilot
+Website: https://planetpilot.world
+Platform: Windows PC (Steam)
+Release date: Tuesday, December 1, 2026
+Steam page: Coming Soon from early November 2026
+Free demo: on Steam from about November 10, 2026
+Price: $19.99 USD (15% launch discount for the first week)
+Genre: a flying game: a relaxed flight career plus arcade air combat
+Languages (interface and subtitles): English, Hebrew, Simplified Chinese, Russian,
+German, Spanish, Brazilian Portuguese
+Input: keyboard, mouse and gamepad
+Engine: Godot 4.7
+Team: Arthur Getz, solo developer
+Press contact: press@planetpilot.world
+
+IN SHORT
+Fly a toy-sized Earth with nearly 2,900 real airports, 57 real cities and famous
+skylines. Climb from a tiny ultralight to a supersonic jet in a relaxed flying
+career, then swap passengers for guns in Dogfights: missions, 14 Legends battles,
+online PvP and co-op.
+
+KEY FACTS
+- World: Earth at one fifth scale with full-size aircraft, runways and buildings
+- Nearly 2,900 real airports with their real runway layouts
+- 57 cities from real map data with more than 1.6 million buildings, parks and trees
+- 138 landmarks and mountains, 42 of them in high detail
+- 17 civil aircraft (15 career planes, an aerobatic plane and a secret hypersonic
+  plane) and 15 Dogfights fighters from First World War biplanes to modern jets
+- Career with 8 kinds of jobs, workshop upgrades and a hangar
+- Dogfights missions and boss aces, and 14 Legends battles
+- Online PvP (1v1 and 2v2) and co-op for 2 to 4 pilots
+- 70 achievements; 50 of them unlock the secret plane
+- Interactive lessons, an autoland for every plane, solid buildings and landmarks
+
+(c) 2026 Planet Pilot
+Map data (c) OpenStreetMap contributors, ODbL, via the Overture Maps Foundation.

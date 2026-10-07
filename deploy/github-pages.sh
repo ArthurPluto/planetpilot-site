@@ -13,7 +13,7 @@ cd "$(dirname "$0")/.."
 git rev-parse --is-inside-work-tree >/dev/null
 [ "$(git branch --show-current)" = "main" ] || { echo "switch to main first"; exit 1; }
 [ -z "$(git status --porcelain)" ] || { echo "commit your changes first"; exit 1; }
-[ "$(cat CNAME)" = "$DOMAIN" ] || { echo "CNAME file must hold $DOMAIN"; exit 1; }
+[ "$(cat docs/CNAME)" = "$DOMAIN" ] || { echo "docs/CNAME must hold $DOMAIN"; exit 1; }
 
 if gh repo view "$OWNER/$REPO" >/dev/null 2>&1; then
   echo "repo exists: pushing"
@@ -24,9 +24,9 @@ else
     --description "Official website of Planet Pilot (planetpilot.world)" --homepage "https://$DOMAIN"
 fi
 
-# Turn on Pages from main / (root); harmless if it is already on.
-gh api -X POST "repos/$OWNER/$REPO/pages" -f "source[branch]=main" -f "source[path]=/" >/dev/null 2>&1 || true
-gh api -X PUT "repos/$OWNER/$REPO/pages" -f "cname=$DOMAIN" >/dev/null
+# Turn on Pages from main /docs (the published folder); harmless if it is already on.
+gh api -X POST "repos/$OWNER/$REPO/pages" -f "source[branch]=main" -f "source[path]=/docs" >/dev/null 2>&1 || true
+gh api -X PUT "repos/$OWNER/$REPO/pages" -f "cname=$DOMAIN" -f "source[branch]=main" -f "source[path]=/docs" >/dev/null
 
 echo
 echo "Pushed. Pages: https://github.com/$OWNER/$REPO/settings/pages"

@@ -5,33 +5,46 @@
 Only needed when the key art, screenshots or fonts change. The output is
 committed, so the site itself has no build step.
 
-Screenshots: the pages use stable SLOT names (world-1, dogfight-2, ...). SLOTS
-below maps each slot to a source PNG; the newest folder wins
-(store/steam/screenshots_v2 when it holds PNGs, else store/steam/screenshots).
-When the v2 shots land, point SLOTS (and SLOTS_V2) at the new file names and
-rerun: no HTML changes. Each slot becomes shots/<slot>-640.webp, -1280.webp and
--1920.jpg (the last one is the press download).
+The published site is docs/ (GitHub Pages serves main /docs); this script and
+DEPLOY.md stay outside it, so they are never served.
+
+Screenshots: the pages use stable SLOT names (world-1, career-1, ...). SLOTS maps
+each slot to a PNG in store/steam/screenshots_v2. Each slot becomes
+shots/<slot>-640.webp, -1280.webp and -1920.jpg (the last one is the press
+download). New shots: change SLOTS and rerun, no HTML changes.
+
+LABEL_FIX: screenshots 08 and 09 were captured before the launch renames
+(store/steam/NAMES.md) and still read "Next: Sparrow Cub" in the career panel.
+The site copies get that one label redrawn with the current name. Drop the
+entries once the shots are recaptured.
+
+Game repo location: env GAME_REPO, default ../skybound-godot next to this repo.
 """
 import os, shutil, zipfile
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from fontTools import subset
 from fontTools.ttLib import TTFont
 
-GAME = r"C:\Users\arthu\skybound-godot"
-SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+GAME = os.environ.get("GAME_REPO", os.path.join(os.path.dirname(ROOT), "skybound-godot"))
+SITE = os.path.join(ROOT, "docs")
 ART = os.path.join(GAME, "store", "steam", "assets")
-SHOTS_V2 = os.path.join(GAME, "store", "steam", "screenshots_v2")
-SHOTS_V1 = os.path.join(GAME, "store", "steam", "screenshots")
-# slot -> source file name (v1 names; fill SLOTS_V2 when screenshots_v2 exists)
-SLOTS = {
-    "world-1": "01_fjord2.png", "world-2": "09_canyon.png", "world-3": "06_night2.png",
-    "world-4": "03_alps2.png", "cockpit-1": "02_cockpit2.png", "career-1": "05_airport.png",
-    "career-2": "10_map.png", "dogfight-1": "04_circus.png", "dogfight-2": "07_dogfight.png",
-    "dogfight-3": "11_bolo.png", "legends-1": "08_legends_tab.png", "legends-2": "12_pearl.png",
-}
-SLOTS_V2 = {}
+SHOTS = os.path.join(GAME, "store", "steam", "screenshots_v2")
 FONTS = os.path.join(GAME, "assets", "fonts")
 OUT = os.path.join(SITE, "assets")
+
+SLOTS = {
+    "world-1": "01_manhattan_sunset.png", "world-2": "02_london_shard.png", "world-3": "06_tel_aviv_coast.png",
+    "cockpit-1": "04_cockpit_night_approach.png", "career-1": "08_career_job_board.png",
+    "career-2": "09_landmarks_browser.png", "aerobatic-1": "07_swallow_smoke_loop.png",
+    "dogfight-1": "03_dogfight_tracers.png", "legends-1": "05_legends_biplane.png",
+    "extras-1": "10_achievements.png",
+}
+# file -> (box to repaint at 1920x1080, new text, text origin)
+LABEL_FIX = {
+    "08_career_job_board.png": ((1694, 138, 1872, 166), "Next: Sparrow Sprout", (1697, 142)),
+    "09_landmarks_browser.png": ((1694, 138, 1872, 166), "Next: Sparrow Sprout", (1697, 142)),
+}
 
 
 def save(img, path, q=82):
@@ -42,7 +55,7 @@ def save(img, path, q=82):
         img.convert("RGB").save(path, "JPEG", quality=q, optimize=True, progressive=True)
     else:
         img.save(path, "PNG", optimize=True)
-    print("  %-48s %7.1f KB" % (os.path.relpath(path, SITE), os.path.getsize(path) / 1024))
+    print("  %-48s %7.1f KB" % (os.path.relpath(path, ROOT), os.path.getsize(path) / 1024))
 
 
 def width(img, w):
@@ -70,8 +83,7 @@ def art():
     head = Image.open(os.path.join(ART, "header_capsule_920x430.png")).convert("RGB")
     save(head, os.path.join(OUT, "img", "header-920.webp"))
     logo = Image.open(os.path.join(ART, "library_logo_1280.png")).convert("RGBA")
-    bbox = logo.getbbox()
-    logo = logo.crop(bbox)
+    logo = logo.crop(logo.getbbox())
     for w in (480, 960):
         save(width(logo, w), os.path.join(OUT, "img", "logo-%d.webp" % w), 88)
     save(width(logo, 960), os.path.join(OUT, "img", "logo-960.png"))
@@ -80,21 +92,36 @@ def art():
     save(width(icon, 512), os.path.join(SITE, "icon-512.png"))
     save(width(icon, 64), os.path.join(OUT, "img", "icon-64.png"))
     touch = Image.new("RGBA", (180, 180), (255, 214, 64, 255))
-    i = width(icon, 156)
-    touch.alpha_composite(i, (12, 12))
+    touch.alpha_composite(width(icon, 156), (12, 12))
     save(touch.convert("RGB"), os.path.join(SITE, "apple-touch-icon.png"))
     icon.save(os.path.join(SITE, "favicon.ico"), sizes=[(16, 16), (32, 32), (48, 48)])
-    print("  favicon.ico", os.path.getsize(os.path.join(SITE, "favicon.ico")) // 1024, "KB")
+
+
+def fix_label(img, f):
+    if f not in LABEL_FIX:
+        return img
+    box, text, at = LABEL_FIX[f]
+    img = img.copy()
+    region = img.crop(box)
+    bg = region.getpixel((1, 1))
+    ink = min(region.getdata(), key=sum)
+    d = ImageDraw.Draw(img)
+    d.rectangle(box, fill=bg)
+    font = ImageFont.truetype(os.path.join(FONTS, "Nunito.ttf"), 17)
+    try:
+        font.set_variation_by_axes([600])
+    except Exception:
+        pass
+    d.text(at, text, font=font, fill=ink)
+    return img
 
 
 def shots():
-    v2 = os.path.isdir(SHOTS_V2) and SLOTS_V2
-    src, slots = (SHOTS_V2, SLOTS_V2) if v2 else (SHOTS_V1, SLOTS)
-    print("screenshots from", src)
+    print("screenshots from", SHOTS)
     d = os.path.join(OUT, "shots")
     shutil.rmtree(d, ignore_errors=True)
-    for slot, f in slots.items():
-        img = Image.open(os.path.join(src, f)).convert("RGB")
+    for slot, f in SLOTS.items():
+        img = fix_label(Image.open(os.path.join(SHOTS, f)).convert("RGB"), f)
         save(width(img, 640), os.path.join(d, slot + "-640.webp"), 78)
         save(width(img, 1280), os.path.join(d, slot + "-1280.webp"), 80)
         save(width(img, 1920), os.path.join(d, slot + "-1920.jpg"), 86)
@@ -103,7 +130,6 @@ def shots():
 def press_zip():
     print("press kit zip")
     z = os.path.join(SITE, "press", "planet-pilot-press-kit.zip")
-    os.makedirs(os.path.dirname(z), exist_ok=True)
     with zipfile.ZipFile(z, "w", zipfile.ZIP_STORED) as zf:
         for f in ("main_capsule_1232x706.png", "library_hero_3840x1240.png", "library_logo_1280.png",
                   "header_capsule_920x430.png", "library_capsule_600x900.png", "client_icon_512.png"):
@@ -135,13 +161,15 @@ def fonts():
         out = os.path.join(d, dst)
         font.flavor = "woff2"
         font.save(out)
-        print("  %-48s %7.1f KB" % (os.path.relpath(out, SITE), os.path.getsize(out) / 1024))
+        print("  %-48s %7.1f KB" % (os.path.relpath(out, ROOT), os.path.getsize(out) / 1024))
     for f in ("OFL-Fredoka.txt", "OFL-Nunito.txt", "OFL-Rubik.txt"):
         shutil.copy(os.path.join(FONTS, f), os.path.join(d, f))
 
 
 if __name__ == "__main__":
-    art()
-    shots()
-    fonts()
-    press_zip()
+    import sys
+    only = sys.argv[1:] or ["art", "shots", "fonts", "zip"]
+    if "art" in only: art()
+    if "shots" in only: shots()
+    if "fonts" in only: fonts()
+    if "zip" in only: press_zip()
