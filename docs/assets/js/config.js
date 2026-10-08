@@ -10,7 +10,7 @@ window.PP_CONFIG = {
 
   // YouTube video id of the main trailer (the part after watch?v=).
   // Empty: the trailer slot shows the key art and "Trailer coming soon".
-  YOUTUBE_ID: "",
+  YOUTUBE_ID: "RgzxKPj2Uvk",
 
   // Discord invite, e.g. "https://discord.gg/xxxxxxx". Empty: shown as "coming soon".
   DISCORD_URL: "",
