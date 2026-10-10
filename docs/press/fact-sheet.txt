@@ -34,5 +34,5 @@ KEY FACTS
 - 70 achievements; 50 of them unlock the secret plane
 - Interactive lessons, an autoland for every plane, solid buildings and landmarks
 
-(c) 2026 Planet Pilot
+(c) 2026 Postify Games
 Map data (c) OpenStreetMap contributors, ODbL, via the Overture Maps Foundation.
