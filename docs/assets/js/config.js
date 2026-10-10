@@ -17,8 +17,8 @@ window.PP_CONFIG = {
 
   // Open data (/open-data/): the ODbL ZIP of the current game release (a GitHub release asset),
   // e.g. "https://github.com/ArthurPluto/planetpilot-open-data/releases/download/v43/planetpilot-odbl-v43.zip"
-  OPEN_DATA_ZIP_URL: "",
+  OPEN_DATA_ZIP_URL: "https://github.com/ArthurPluto/planetpilot-open-data/releases/download/v50/planetpilot-odbl-v50.zip",
   // The public repo holding the bake scripts and the two CC BY-SA models,
   // e.g. "https://github.com/ArthurPluto/planetpilot-open-data"
-  OPEN_DATA_REPO_URL: ""
+  OPEN_DATA_REPO_URL: "https://github.com/ArthurPluto/planetpilot-open-data"
 };
