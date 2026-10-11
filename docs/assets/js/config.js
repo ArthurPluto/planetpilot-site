@@ -6,7 +6,7 @@
 window.PP_CONFIG = {
   // Steam store page, e.g. "https://store.steampowered.com/app/1234567/Planet_Pilot/".
   // Empty: the Wishlist buttons fall back to a Steam search for "Planet Pilot".
-  STEAM_URL: "",
+  STEAM_URL: "https://store.steampowered.com/app/5407250/Planet_Pilot/",
 
   // YouTube video id of the main trailer (the part after watch?v=).
   // Empty: the trailer slot shows the key art and "Trailer coming soon".
