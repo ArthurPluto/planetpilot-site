@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   var C = window.PP_CONFIG || {};
-  var STEAM_FALLBACK = "https://store.steampowered.com/search/?term=Planet%20Pilot";
+  var STEAM_FALLBACK = "https://store.steampowered.com/app/5407250/Planet_Pilot/";
 
   function each(sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); }
 
