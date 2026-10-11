@@ -12,6 +12,7 @@ Languages (interface and subtitles): English, Hebrew, Simplified Chinese, Russia
 German, Spanish, Brazilian Portuguese
 Input: keyboard, mouse and gamepad
 Engine: Godot 4.7
+Developer and publisher: Postify Games
 Team: Arthur Getz, solo developer
 Press contact: press@planetpilot.world
 
