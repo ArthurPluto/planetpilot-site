@@ -50,7 +50,7 @@
 
 <section class="section">
   <div class="wrap prose">
-    <p><strong>Last updated:</strong> October 7, 2026</p>
+    <p><strong>Last updated:</strong> November 19, 2026</p>
 
     <h2>What this is</h2>
     <p>Planet Pilot's world is drawn from open map data. The game itself is proprietary, but the <strong>map databases derived from OpenStreetMap</strong> (through the Overture Maps Foundation releases) are covered by the <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener">Open Database License (ODbL) 1.0</a>, so we offer them here, under the same licence, together with the scripts that build them.</p>
@@ -60,15 +60,15 @@
     <h2>Downloads</h2>
     <ul class="dl-list">
       <li>
-        <div class="row"><b>All databases, this game release</b><a class="btn btn-sm btn-sun" data-dl="zip" data-soon="Download at launch" href="#">Download ZIP</a></div>
-        <span>One ZIP per game release (<code>planetpilot-odbl-v&lt;version&gt;.zip</code>, about 200 MB): every file in the table below, <code>ODBL_LICENSE.txt</code>, <code>ODBL_SOURCES.txt</code> and a short README describing the binary formats. Each release's ZIP stays available for at least as long as that game version is sold.</span>
+        <div class="row"><b>All databases, latest game release</b><a class="btn btn-sm btn-sun" href="https://github.com/ArthurPluto/planetpilot-open-data/releases/latest" rel="noopener">Download ZIP</a></div>
+        <span>One ZIP per game release (<code>planetpilot-odbl-v&lt;version&gt;.zip</code>, about 220 MB): every file in the table below, <code>ODBL_LICENSE.txt</code>, <code>ODBL_SOURCES.txt</code> and a short README describing the binary formats. The button opens the latest release on GitHub, where the ZIP is attached; earlier releases stay listed there. Each release's ZIP stays available for at least as long as that game version is sold.</span>
       </li>
       <li>
-        <div class="row"><b>The bake scripts</b><a class="btn btn-sm btn-sky" data-link="repo" data-soon="Published at launch" href="#">Open the repository</a></div>
-        <span>The scripts named below, as they were at that release. They need Python 3.12, numpy and the Overture release from <code>s3://overturemaps-us-west-2/release/&lt;release id&gt;/</code>. Together they describe the methods that rebuild every database.</span>
+        <div class="row"><b>The bake scripts</b><a class="btn btn-sm btn-sky" href="https://github.com/ArthurPluto/planetpilot-open-data" rel="noopener">Open the repository</a></div>
+        <span>The scripts named below, as they were at the latest data release. They need Python 3.12, numpy and the Overture release from <code>s3://overturemaps-us-west-2/release/&lt;release id&gt;/</code>. Together they describe the methods that rebuild every database.</span>
       </li>
       <li>
-        <div class="row"><b>The two CC BY-SA models</b><a class="btn btn-sm" data-link="repo" data-soon="Published at launch" href="#">Open the repository</a></div>
+        <div class="row"><b>The two CC BY-SA models</b><a class="btn btn-sm" href="https://github.com/ArthurPluto/planetpilot-open-data/tree/main/models" rel="noopener">Open the models</a></div>
         <span>The 3D models of Christ the Redeemer and Mount Rushmore are adapted from CC BY-SA 3.0 photos and are offered under CC BY-SA 3.0 (<code>christ_redeemer.glb</code>, <code>mount_rushmore.glb</code>, with the notice from <code>licenses/CC_BY_SA_MODELS.txt</code>).</span>
       </li>
     </ul>
@@ -81,11 +81,14 @@
         <tbody>
           <tr><td><code>roads.bin</code></td><td>City main roads (motorway to secondary, named avenues) and street bearings</td><td>Overture transportation/segment <code>2026-09-23.1</code></td><td><code>tools/bake_roads.py</code></td></tr>
           <tr><td><code>roadgraph.bin</code></td><td>The same roads as a connected graph</td><td>Overture transportation/segment <code>2026-09-23.1</code></td><td><code>tools/bake_road_graph.py</code></td></tr>
+          <tr><td><code>farroads.bin</code></td><td>Road lines per one-degree cell for the terrain's far roads</td><td>Derived from <code>roadgraph.bin</code></td><td><code>tools/bake_far_roads.py</code></td></tr>
           <tr><td><code>roadprof/*.bin</code></td><td>Road profiles (deck heights, bridges, viaducts, tunnels) of every graph edge, solved on the game terrain</td><td>Derived from <code>roadgraph.bin</code></td><td><code>tools/bake_road_profiles.gd</code> (<code>tools/bake_road_profiles_par.py</code>)</td></tr>
-          <tr><td><code>buildings/*.bin</code> (one per city), <code>city_towers.json</code></td><td>Building footprints and heights</td><td>Overture buildings <code>2026-09-23.1</code> (heights also from 3D-GloBFP, Google Open Buildings 2.5D Temporal and GHSL, CC BY 4.0)</td><td><code>tools/fetch_heights.py fetch</code>, <code>tools/bake_city_buildings.py</code></td></tr>
-          <tr><td><code>green/*.bin</code> (one per city)</td><td>Parks, gardens, grass, woods, cemeteries, trees</td><td>Overture base land_use and land <code>2026-09-23.1</code></td><td><code>tools/bake_city_green.py</code></td></tr>
+          <tr><td><code>buildings/*.bin</code> (one per city or region), <code>city_towers.json</code></td><td>Building footprints and heights</td><td>Overture buildings <code>2026-09-23.1</code> (heights also from 3D-GloBFP, Google Open Buildings 2.5D Temporal and GHSL, CC BY 4.0)</td><td><code>tools/fetch_heights.py fetch</code>, <code>tools/bake_city_buildings.py</code></td></tr>
+          <tr><td><code>green/*.bin</code> (one per city or region)</td><td>Parks, gardens, grass, woods, cemeteries, trees</td><td>Overture base land_use and land <code>2026-09-23.1</code></td><td><code>tools/bake_city_green.py</code></td></tr>
           <tr><td><code>city_water.bin</code></td><td>Real-width city rivers and docks</td><td>Overture base.water <code>2026-09-23.0</code></td><td><code>tools/bake_city_water.py</code></td></tr>
           <tr><td><code>coast_ov_osm.bin</code></td><td>Coast patches (piers, docks)</td><td>Overture base.water <code>2026-09-23.0</code></td><td><code>tools/bake_city_water.py</code></td></tr>
+          <tr><td><code>great_wall.bin</code></td><td>The Ming Great Wall route</td><td>OpenStreetMap through the Overpass API (snapshot 2026-10-18)</td><td><code>tools/bake_great_wall.py</code></td></tr>
+          <tr><td><code>detail/odesa.bin</code>, <code>detail/packs.json</code>, <code>port_props.json</code></td><td>The Odesa city pack (coast, harbours, piers, beaches) and the harbour cranes</td><td>OpenStreetMap through the Overpass API (snapshot 2026-10-21); ground from Copernicus DEM GLO-30 (&copy; DLR e.V. 2010-2014 and &copy; Airbus Defence and Space GmbH 2014-2018, provided under COPERNICUS by the European Union and ESA)</td><td><code>tools/bake_city_near.py odesa</code></td></tr>
           <tr><td><code>data/world/lakes.bin</code> record 10 and the <code>lake_field.bin</code> tiles round it</td><td>The Lake Ontario shore (one OSM feature patched into the Natural Earth lakes)</td><td>Overture base.water <code>2026-09-23.0</code></td><td><code>tools/patch_lake_osm.py</code>, then <code>tools/bake_lake_field.py --lakes 10</code></td></tr>
         </tbody>
       </table>
@@ -112,13 +115,13 @@
           <li><a data-link="steam" href="https://store.steampowered.com/app/5407250/Planet_Pilot/" rel="noopener">Steam page</a></li>
           <li><a href="/#trailer">Trailer</a></li>
           <li><a href="/#faq">FAQ</a></li>
+          <li><a href="https://store.steampowered.com/app/5433490/Planet_Pilot_Demo/" rel="noopener">Free demo</a></li>
         </ul>
       </div>
       <div>
-        <h2>Community</h2>
+        <h2>More</h2>
         <ul>
           <li><a href="/support/">Support</a></li>
-          <li><a data-link="discord" data-soon="Discord: coming soon" href="#">Discord</a></li>
           <li><a href="/press/">Press kit</a></li>
         </ul>
       </div>
@@ -126,6 +129,7 @@
         <h2>Legal</h2>
         <ul>
           <li><a href="/privacy/">Privacy policy</a></li>
+          <li><a href="/terms/">Terms of use</a></li>
           <li><a href="/open-data/" aria-current="page">Open data (ODbL)</a></li>
         </ul>
       </div>

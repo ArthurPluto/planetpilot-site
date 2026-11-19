@@ -9,34 +9,10 @@
   // Steam links
   each("[data-link='steam']", function (a) { a.href = C.STEAM_URL || STEAM_FALLBACK; });
 
-  // Discord links
-  each("[data-link='discord']", function (a) {
-    if (C.DISCORD_URL) {
-      a.href = C.DISCORD_URL;
-    } else {
-      var s = document.createElement("span");
-      s.className = a.className;
-      s.textContent = a.getAttribute("data-soon") || "Discord: coming soon";
-      a.replaceWith(s);
-    }
-  });
-
-  // Open data downloads
-  function linkOrSoon(a, url) {
-    if (url) { a.href = url; return; }
-    a.removeAttribute("href");
-    a.setAttribute("aria-disabled", "true");
-    a.textContent = a.getAttribute("data-soon") || "Available at launch";
-  }
-  each("[data-dl='zip']", function (a) { linkOrSoon(a, C.OPEN_DATA_ZIP_URL); });
-  each("[data-link='repo']", function (a) { linkOrSoon(a, C.OPEN_DATA_REPO_URL); });
-
   // Trailer: a click-to-load facade, so YouTube sets nothing until a visitor presses play.
   each("[data-trailer]", function (box) {
     var btn = box.querySelector(".trailer-play");
-    var soon = box.querySelector(".trailer-soon");
     if (!C.YOUTUBE_ID) { if (btn) btn.hidden = true; return; }
-    if (soon) soon.hidden = true;
     btn.hidden = false;
     btn.addEventListener("click", function () {
       var f = document.createElement("iframe");
@@ -47,10 +23,6 @@
       box.appendChild(f);
       btn.remove();
     });
-  });
-  each("[data-link='youtube']", function (a) {
-    if (C.YOUTUBE_ID) a.href = "https://www.youtube.com/watch?v=" + encodeURIComponent(C.YOUTUBE_ID);
-    else { a.removeAttribute("href"); a.setAttribute("aria-disabled", "true"); a.textContent = a.getAttribute("data-soon") || "Trailer link coming soon"; }
   });
 
   // Mobile nav

@@ -50,8 +50,7 @@
 
 <section class="section">
   <div class="wrap prose">
-    <p class="notice">Draft, to be reviewed. This policy has not yet been checked by a privacy lawyer and may change before launch.</p>
-    <p><strong>Last updated:</strong> November 18, 2026</p>
+    <p><strong>Last updated:</strong> November 19, 2026</p>
 
     <h2>Who we are</h2>
     <p>Planet Pilot is made and published by Postify Games (the "controller" under data protection law). Contact for anything in this policy, including deletion requests: <a href="mailto:privacy@planetpilot.world">privacy@planetpilot.world</a>.</p>
@@ -59,22 +58,23 @@
     <h2>The short version</h2>
     <ul>
       <li>Planet Pilot has no accounts, no ads, no analytics and no tracking.</li>
-      <li>It sends data only when you send a problem report or play online (Dogfights PvP and co-op).</li>
+      <li>It sends data to us only when you send a problem report or play online (Dogfights PvP and co-op).</li>
       <li>Problem reports are kept for 90 days, then deleted. You can ask us to delete one sooner.</li>
     </ul>
 
     <h2>1. Problem reports (optional)</h2>
-    <p>Nothing is sent unless you press <strong>Send report</strong>: after the game closed unexpectedly, or from Settings &gt; Report a problem. A report holds:</p>
+    <p>A report is sent only when you press <strong>Send report</strong>: after the game closed unexpectedly, or from Settings &gt; Report a problem. A report holds:</p>
     <ul>
-      <li>the game version and its update history, the Windows version, the game's language and your system locale;</li>
-      <li>the graphics card, its driver and kind (integrated or discrete), the renderer, the game's graphics preset, the processor model and thread count, the PC's memory size, how much of it was free and how much memory the game used, and the screen and window size;</li>
-      <li>after a crash, Windows' own record of it (the name and version of the file that failed, the error code and the time; never a folder path), and whether the game had stopped responding and for how long;</li>
-      <li>a random session number made at each start (it is not tied to you or your PC);</li>
-      <li>which screen or game mode was open (for example the airport, a flight or Dogfights, with the airport code and aircraft), which graphics settings were changed during that session, how long the game had been running and its frame rate;</li>
-      <li>the last 64 KB of that session's game log, with your Windows user folder name hidden;</li>
+      <li>the game version, its update history and whether it ran in safe mode, the Windows version, the game's language and your system locale;</li>
+      <li>the graphics card, its maker, driver and graphics API version, its kind (integrated or discrete), the renderer, the game's graphics preset, the processor model and thread count, the PC's memory size, how much of it was free, how much memory and video memory the game used, and the screen and window size;</li>
+      <li>after a crash, Windows' own record of it (the name and version of the file that failed, the error code, the position inside that file and the time; never a folder path), and whether the game had stopped responding and for how long;</li>
+      <li>after a crash, whether Windows recorded a graphics driver reset or a blue screen while the game was running (the event number, the name of the driver file and the time; never a folder path), and which graphics fallback the game applied after the crash (low, lite or compatibility mode);</li>
+      <li>a random session number made at each start (it is not tied to you or your PC) and the time that session started;</li>
+      <li>which screen or game mode was open (for example the airport, a flight or Dogfights, with the airport code and aircraft), which graphics settings were changed during that session, how long the game had been running, its frame rate and its longest freeze;</li>
+      <li>the last 64 KB of that session's game log, with the start-up, update and graphics lines from its beginning, the log's file name and size, and the time the report was made. Your Windows user folder name is hidden in the log, and so is your Steam name when Steam is running;</li>
       <li>the comment you type (optional, up to 1,000 characters). Please do not write personal details in it.</li>
     </ul>
-    <p>Your IP address reaches our server as part of the connection. We use it only to limit how many reports one address can send per hour (kept in memory, never written into the report). Our hosting provider may keep it in its connection logs for a short time.</p>
+    <p>Your IP address reaches our server as part of the connection. We use it only to limit how many reports one address can send per hour (kept in memory, never written into the report or into the server's log). Our hosting provider may keep it in its connection logs for a short time.</p>
     <p><strong>Why:</strong> to find and fix crashes and bugs. <strong>Legal basis:</strong> your consent (you choose to send each report). You can withdraw it by asking us to delete the report.</p>
     <p>If a report cannot be sent (you are offline), the game keeps it on your PC and asks you at the next start whether to send it or delete it. It never sends it again without asking.</p>
     <p><strong>Report id:</strong> after a report arrives, the card shows its id (for example <code>20261007-142233-1a2b3c</code>). Email that id to <a href="mailto:privacy@planetpilot.world">privacy@planetpilot.world</a> to have the report deleted. We delete it within 30 days and confirm by email.</p>
@@ -86,10 +86,9 @@
       <li>your callsign, chosen from two fixed word lists (there is no free-text name and no chat);</li>
       <li>a random seat token for the match, your platform and the game's protocol and physics versions;</li>
       <li>your aircraft's flight and combat state during the match;</li>
-      <li>on Steam, your Steam display name and Steam ID when a Steam lobby or invite is used;</li>
-      <li>your IP address, to connect you and to limit abuse (rate limits, kept in memory).</li>
+      <li>your IP address, to connect you and to limit abuse (rate limits, kept in memory; the server's log shows only a short one-way tag in its place).</li>
     </ul>
-    <p><strong>Why:</strong> to run the match. <strong>Legal basis:</strong> performance of the service you asked for (contract) and our legitimate interest in keeping matches fair and the server safe. We do not keep match data after the match ends, except anonymous server logs (no names, no IP addresses) for up to 90 days.</p>
+    <p><strong>Why:</strong> to run the match. <strong>Legal basis:</strong> performance of the service you asked for (contract) and our legitimate interest in keeping matches fair and the server safe. We do not keep match data after the match ends, except the server's log, which holds no names and no IP addresses (a connection shows only a short one-way tag that changes every time the server starts and cannot be turned back into an address), for up to 90 days.</p>
 
     <h2>3. Updates (direct-download builds only)</h2>
     <p>The version downloaded from our site (not the Steam version) checks GitHub Releases for updates at start. GitHub sees your IP address; see GitHub's privacy statement. Steam handles the updates of the Steam version.</p>
@@ -97,7 +96,7 @@
     <h2>4. Who processes the data</h2>
     <ul>
       <li><strong>Railway</strong> (Railway Corporation, USA): hosts the game server that receives problem reports and runs online matches.</li>
-      <li><strong>Valve</strong> (Steam): your Steam account, purchases, lobbies and invites; see the <a href="https://store.steampowered.com/privacy_agreement/" rel="noopener">Steam privacy policy</a>.</li>
+      <li><strong>Valve</strong> (Steam): your Steam account, purchases, achievements, cloud saves and the Daily Flight leaderboards (your score is shown with your Steam name, as Steam displays it); see the <a href="https://store.steampowered.com/privacy_agreement/" rel="noopener">Steam privacy policy</a>.</li>
       <li><strong>GitHub</strong> (GitHub, Inc., USA): update checks of the direct-download builds, and the hosting of this website (see section 9).</li>
     </ul>
     <p>We do not sell or share your data with anyone else.</p>
@@ -133,13 +132,13 @@
           <li><a data-link="steam" href="https://store.steampowered.com/app/5407250/Planet_Pilot/" rel="noopener">Steam page</a></li>
           <li><a href="/#trailer">Trailer</a></li>
           <li><a href="/#faq">FAQ</a></li>
+          <li><a href="https://store.steampowered.com/app/5433490/Planet_Pilot_Demo/" rel="noopener">Free demo</a></li>
         </ul>
       </div>
       <div>
-        <h2>Community</h2>
+        <h2>More</h2>
         <ul>
           <li><a href="/support/">Support</a></li>
-          <li><a data-link="discord" data-soon="Discord: coming soon" href="#">Discord</a></li>
           <li><a href="/press/">Press kit</a></li>
         </ul>
       </div>
@@ -147,6 +146,7 @@
         <h2>Legal</h2>
         <ul>
           <li><a href="/privacy/" aria-current="page">Privacy policy</a></li>
+          <li><a href="/terms/">Terms of use</a></li>
           <li><a href="/open-data/">Open data (ODbL)</a></li>
         </ul>
       </div>

@@ -2,10 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://planetpilot.world/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-19</lastmod>
   </url>
-  <url><loc>https://planetpilot.world/press/</loc><lastmod>2026-10-07</lastmod></url>
-  <url><loc>https://planetpilot.world/support/</loc><lastmod>2026-10-07</lastmod></url>
-  <url><loc>https://planetpilot.world/privacy/</loc><lastmod>2026-10-07</lastmod></url>
-  <url><loc>https://planetpilot.world/open-data/</loc><lastmod>2026-10-07</lastmod></url>
+  <url><loc>https://planetpilot.world/press/</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://planetpilot.world/support/</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://planetpilot.world/terms/</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://planetpilot.world/privacy/</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://planetpilot.world/open-data/</loc><lastmod>2026-11-19</lastmod></url>
 </urlset>
